@@ -14,7 +14,7 @@ const Dashboard = () => {
                 setPirates(res.data);
                 setLoaded(true);
             });
-    }, [pirates])
+    }, []);
 
     const deleteHandler = (pirateId) => {
         axios.delete(`http://localhost:8000/api/pirates/${pirateId}/delete`)
@@ -23,10 +23,6 @@ const Dashboard = () => {
                 setPirates(pirates.filter(pirate => pirate._id !== pirateId));
             });
     }
-
-    // const removeFromDom = pirateId => {
-    //     setPirates(pirates.filter(pirate => pirate._id != pirateId));
-    // }
 
     if(!loaded) {
         return 'Loading...'
