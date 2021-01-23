@@ -34,7 +34,7 @@ const Dashboard = () => {
             <button onClick={() => navigate(`/pirate/new`)}>Add Pirate</button>
             {pirates.map((pirate, idx) => {
                 return (
-                    <div>
+                    <div key={idx}>
                         <h3>{pirate.pirateName}</h3>
                         <img src={pirate.pirateUrl} alt={pirate.pirateName} width="150"/>
                         <button onClick={()=>navigate(`/pirate/${pirate._id}`)}>View Pirate</button>
