@@ -66,28 +66,32 @@ const NewPirate = () => {
 
     const onSubmitHandler = e => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/pirates/new', {
-            pirateName,
-            pirateUrl,
-            treasure,
-            catchPhrase,
-            crewPosition,
-            pegLeg,
-            eyePatch,
-            hookHand
-        })
-            .then(res => {
-                console.log(res)
-                navigate('/');
+        if(
+            !nameError && !urlError && !treasureError && !catchError && !crewError
+        ) {
+            axios.post('http://localhost:8000/api/pirates/new', {
+                pirateName,
+                pirateUrl,
+                treasure,
+                catchPhrase,
+                crewPosition,
+                pegLeg,
+                eyePatch,
+                hookHand
             })
-            .catch(err=>{
-                const errorResponse = err.response.data.errors;
-                const errorArr = [];
-                for (const key of Object.keys(errorResponse)) {
-                    errorArr.push(errorResponse[key].message)
-                }
-                setErrors(errorArr);
-            })
+                .then(res => {
+                    console.log(res)
+                    navigate('/');
+                })
+                .catch(err=>{
+                    const errorResponse = err.response.data.errors;
+                    const errorArr = [];
+                    for (const key of Object.keys(errorResponse)) {
+                        errorArr.push(errorResponse[key].message)
+                    }
+                    setErrors(errorArr);
+                })
+        }
     }
 
     return (
@@ -135,7 +139,7 @@ const NewPirate = () => {
                     }
                     <label>Crew Position:</label><br/>
                     <select value={crewPosition} onChange={handleCrew}>
-                        <option>Select Crew Position</option>
+                        <option value="">Select Crew Position</option>
                         <option value="Captain">Captain</option>
                         <option value="First Mate">First Mate</option>
                         <option value="Quarter Master">Quarter Master</option>
